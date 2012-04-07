@@ -25,7 +25,7 @@ int main(int argc, char *argv[ ]) {
 
     double time0 = Timer();
     for (int t = 0; t < NUM_TRIALS; t++) {
-//        SimdMul(A, B, C, NUM); 
+        SimdMul(A, B, C, NUM);
     }
     double time1 = Timer();
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[ ]) {
 
     double time2 = Timer();
     for (int t = 0; t < NUM_TRIALS; t++) {
-  //      SimdMul(A, B, C, NUM);
+        NonSimdMul(A, B, C, NUM);
     }
     double time3 = Timer();
 

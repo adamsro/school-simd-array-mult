@@ -325,7 +325,7 @@ void NonSimdDiv(float *a, float b, float *c, int len) {
 float SimdMulAndSum(float *a, float *b, int len) {
     float sum[4] = {0., 0., 0., 0.};
     int limit = (len / SSE_WIDTH) * SSE_WIDTH;
-        /* instruction SOURCE DESTINATION */
+        /* instruction DESTINATION SOURCE */
     __asm
             (
             ".att_syntax\n\t"

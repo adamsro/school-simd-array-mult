@@ -1,0 +1,100 @@
+% Robert Adams	02/07/2012	CS 311
+
+\documentclass[letterpaper,10pt]{article} %twocolumn titlepage 
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{alltt}
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{balance}
+\usepackage[TABBOTCAP, tight]{subfigure}
+\usepackage{enumitem}
+\usepackage{pstricks, pst-node}
+
+
+\usepackage{geometry}
+\geometry{margin=1in, textheight=8.5in} %textwidth=6in
+
+%random comment
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\usepackage{hyperref}
+
+\def\name{Robert M Adams}
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = true,
+  urlcolor = black,
+  pdfauthor = {\name},
+  pdfkeywords = {cs311 ``operating systems'' },
+  pdftitle = {S 311 Project 4: Python Server, C Client},
+  pdfsubject = {CS 311 Project 4},
+  pdfpagemode = UseNone
+}
+
+
+\begin{document}
+  \title{CS 311 Project 4: Python Server, C Client}
+  \author{Robert Adams}
+\maketitle
+
+
+\section{Design Decisions}
+
+
+	I decided to use the JSON format to send and receive messages between the programs.
+    Although this was more work, it allows me more flexibility then say parsing a sting 
+    and breaking it into variables by white space. 
+
+
+	To prevent remote code from being executed I only parsed until a
+    line ending was reached, then if the parsed content is not in 
+    JSON format, the program throws an exception and exits.  
+    In a program with more practical use it may be best to just 
+    ignore anything not conforming to the format.
+	
+
+\section{Difficulties}
+
+
+	Parsing a JSON string with C turned out to be quite the hassle.
+    I was finally able to find a header only library and included it,
+    but even getting that to work with its minimal examples and 
+    documentation took lots of trial and error.
+
+
+	Using ‘select’ properly was also a challenge. I was
+    initially trying to accept every connection instead of registering
+    each new connection as a list for select to iterate over. 
+
+
+\begin{table}
+\centering
+    \begin{tabular}{|l|l|}
+\hline
+        Date                           & Description                                                                  \\ \hline
+  Fri Mar 16 22:34:23 2012 -0700     & compute more or less receives kill singal and dies \\
+ Fri Mar 16 18:51:32 2012 -0700      &    code for part2, compute working \\
+Wed Mar 14 12:24:19 2012 -0700        & server now sends and recvs all messages correctly: fixed logic i \\ 
+  Sun Mar 11 23:38:22 2012 -0700      & manage refactored, handles all req inputs  \\
+ Sat Mar 10 21:44:55 2012 -0800       & client recieves and parses json   \\
+ Sat Mar 10 15:15:17 2012 -0800       & added socket connect code to compute cleint and server connect   \\
+Wed Mar 7 14:53:53 2012 -0800         & compute has brute.cpp code \\
+  Sun Mar 4 19:46:31 2012 -0800       &  added simple server in python and python client \\
+   Sun Mar 4 12:22:11 2012 -0800      & touch blank files \\
+
+\hline
+    \end{tabular}
+\caption{Pulled from git commit log.}\label{commit-logs}
+\end{table}
+
+
+\end{document}
