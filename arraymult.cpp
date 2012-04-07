@@ -17,7 +17,7 @@ int main(int argc, char *argv[ ]) {
 
     double prec = omp_get_wtick();
     //fprintf( stderr, "Clock precision = %g\n", prec );
-    fprintf(stdout, "%ld\n", sizeof (float));
+    fprintf(stdout, "sizeof float: %ld\n", sizeof (float));
 
     for (int i = 0; i < NUM; i++) {
         A[i] = Ranf(-10.f, 10.f);
