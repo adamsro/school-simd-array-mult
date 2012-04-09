@@ -9,4 +9,4 @@ set xlabel "number of words"
 set ylabel "seconds"
 set pm3d
 #set style data pm3d
-splot 'runtimes.out', 'runtimes.out'
+splot 'simd.out', 'nosimd.out'
