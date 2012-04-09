@@ -33,10 +33,10 @@ int main(int argc, char *argv[ ]) {
 
     double dts = (time1 - time0) / (float) NUM_TRIALS;
     if(GNUPLOT == 0) {
-        fprintf(stderr, "Average SIMD Elapsed time = %g\n", dts);
-        fprintf(stderr, "SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dts) / 1000000.f);
+        printf("Average SIMD Elapsed time = %g\n", dts);
+        printf("SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dts) / 1000000.f);
     } else {
-        fprintf(stderr, "%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
+        printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
     }
     double time2 = Timer();
     for (int t = 0; t < NUM_TRIALS; t++) {
@@ -46,11 +46,11 @@ int main(int argc, char *argv[ ]) {
 
     double dtn = (time3 - time2) / (float) NUM_TRIALS;
     if(GNUPLOT == 0) {
-        fprintf(stderr, "Average Non-SIMD Elapsed time = %g\n", dtn);
-        fprintf(stderr, "Non-SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dtn) / 1000000.f);
-        fprintf(stderr, "Speed-up = %g\n", dtn / dts);
+        printf("Average Non-SIMD Elapsed time = %g\n", dtn);
+        printf("Non-SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dtn) / 1000000.f);
+        printf("Speed-up = %g\n", dtn / dts);
     } else {
-        fprintf(stderr, "%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
+        printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
     }
 
     return 0;
@@ -58,14 +58,11 @@ int main(int argc, char *argv[ ]) {
 
 float Ranf(float low, float high) {
     float r = (float) rand(); // 0 - RAND_MAX
-
     return ( low + r * (high - low) / (float) RAND_MAX);
 }
 
 int Ranf(int ilow, int ihigh) {
     float low = (float) ilow;
     float high = (float) ihigh + 0.9999f;
-
     return (int) (Ranf(low, high));
-    fprintf(stdout, "sizeof float: %ld\n", sizeof (float));
 }
