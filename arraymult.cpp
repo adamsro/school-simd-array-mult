@@ -7,6 +7,7 @@
 #endif
 
 #define GNUPLOT 1
+#define USESIMD 1
 
 float A[NUM];
 float B[NUM];
@@ -25,34 +26,36 @@ int main(int argc, char *argv[ ]) {
         B[i] = Ranf(-10.f, 10.f);
     }
 
-    double time0 = Timer();
-    for (int t = 0; t < NUM_TRIALS; t++) {
-        SimdMul(A, B, C, NUM);
-    }
-    double time1 = Timer();
+    if (USESIMD == 1) {
+        double time0 = Timer();
+        for (int t = 0; t < NUM_TRIALS; t++) {
+            SimdMul(A, B, C, NUM);
+        }
+        double time1 = Timer();
 
-    double dts = (time1 - time0) / (float) NUM_TRIALS;
-    if(GNUPLOT == 0) {
-        printf("Average SIMD Elapsed time = %g\n", dts);
-        printf("SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dts) / 1000000.f);
-    } else {
-        printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
-    }
-    double time2 = Timer();
-    for (int t = 0; t < NUM_TRIALS; t++) {
-        NonSimdMul(A, B, C, NUM);
-    }
-    double time3 = Timer();
+        double dts = (time1 - time0) / (float) NUM_TRIALS;
+        if(GNUPLOT == 0) {
+            printf("Average SIMD Elapsed time = %g\n", dts);
+            printf("SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dts) / 1000000.f);
+        } else {
+            printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
+        }
+    } else { // run without simd
+        double time2 = Timer();
+        for (int t = 0; t < NUM_TRIALS; t++) {
+            NonSimdMul(A, B, C, NUM);
+        }
+        double time3 = Timer();
 
-    double dtn = (time3 - time2) / (float) NUM_TRIALS;
-    if(GNUPLOT == 0) {
-        printf("Average Non-SIMD Elapsed time = %g\n", dtn);
-        printf("Non-SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dtn) / 1000000.f);
-        printf("Speed-up = %g\n", dtn / dts);
-    } else {
-        printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
+        double dtn = (time3 - time2) / (float) NUM_TRIALS;
+        if(GNUPLOT == 0) {
+            printf("Average Non-SIMD Elapsed time = %g\n", dtn);
+            printf("Non-SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dtn) / 1000000.f);
+            //printf("Speed-up = %g\n", dtn / dts);
+        } else {
+            //printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
+        }
     }
-
     return 0;
 }
 
