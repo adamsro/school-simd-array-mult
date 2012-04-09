@@ -6,8 +6,8 @@
 #define NUM 1024
 #endif
 
-#define GNUPLOT 0
-#define PRINT_SIMD 1
+#define GNUPLOT 1
+#define PRINT_SIMD 0
 #define PRINT_NOSIMD 1
 
 float A[NUM];
