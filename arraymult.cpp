@@ -6,8 +6,9 @@
 #define NUM 1024
 #endif
 
-#define GNUPLOT 1
-#define USESIMD 1
+#define GNUPLOT 0
+#define PRINT_SIMD 1
+#define PRINT_NOSIMD 1
 
 float A[NUM];
 float B[NUM];
@@ -26,7 +27,7 @@ int main(int argc, char *argv[ ]) {
         B[i] = Ranf(-10.f, 10.f);
     }
 
-    if (USESIMD == 1) {
+    if (PRINT_SIMD == 1) {
         double time0 = Timer();
         for (int t = 0; t < NUM_TRIALS; t++) {
             SimdMul(A, B, C, NUM);
@@ -41,7 +42,8 @@ int main(int argc, char *argv[ ]) {
             // x-axis: MFLOPS, y-axis: #-of-elements. do not need elapsed time
             printf("%8.3f %d\n", ((float) NUM / dts) / 1000000.f, NUM);
         }
-    } else { // run without simd
+    }
+        if(PRINT_NOSIMD == 1) { 
         double time2 = Timer();
         for (int t = 0; t < NUM_TRIALS; t++) {
             NonSimdMul(A, B, C, NUM);
