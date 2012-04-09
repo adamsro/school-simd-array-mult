@@ -38,7 +38,8 @@ int main(int argc, char *argv[ ]) {
             printf("Average SIMD Elapsed time = %g\n", dts);
             printf("SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dts) / 1000000.f);
         } else {
-            printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
+            // x-axis: MFLOPS, y-axis: #-of-elements. do not need elapsed time
+            printf("%8.3f %d\n", ((float) NUM / dts) / 1000000.f, NUM);
         }
     } else { // run without simd
         double time2 = Timer();
@@ -53,7 +54,7 @@ int main(int argc, char *argv[ ]) {
             printf("Non-SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dtn) / 1000000.f);
             //printf("Speed-up = %g\n", dtn / dts);
         } else {
-            //printf("%g %8.3f\n", dts, ((float) NUM / dts) / 1000000.f);
+            printf("%8.3f %d\n", ((float) NUM / dtn) / 1000000.f, NUM);
         }
     }
     return 0;
