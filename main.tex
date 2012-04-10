@@ -1,4 +1,4 @@
-% Robert Adams	02/07/2012	CS 311
+% Robert Adams CS 475
 
 \documentclass[letterpaper,10pt]{article} %twocolumn titlepage 
 \usepackage{graphicx}
@@ -34,15 +34,15 @@
   colorlinks = true,
   urlcolor = black,
   pdfauthor = {\name},
-  pdfkeywords = {cs311 ``operating systems'' },
-  pdftitle = {S 311 Project 4: Python Server, C Client},
-  pdfsubject = {CS 311 Project 4},
-  pdfpagemode = UseNone
+  pdfkeywords = {cs745},
+  pdftitle = {CS 475 Project 2: SIMD Parallelization},
+  pdfsubject = {CS 475 Project 2},
+  pdfpagemode = UseNone,
 }
 
 
 \begin{document}
-  \title{CS 311 Project 4: Python Server, C Client}
+\title{CS 475 Project 2: SIMD Parallelization } 
   \author{Robert Adams}
 \maketitle
 
@@ -50,18 +50,41 @@
 \section{Design Decisions}
 
 
-	
+\section{Results}
 
-\section{Difficulties}
+\subsection{Plotted Dataset}
 
-
-
-\begin{figure}[p]
+\begin{figure} [ht]
     \centering
     \input{plot.tex}
-    \caption{Runtimes with 8 threads until 2\textasciicircum32. }
+    \caption{Speed of SIMD Multiplications on an array of random floats. }
     \label{runtimes}
 \end{figure}
+
+\subsection{System Specifications}
+
+Rackspace Cloud Server. \$ lscpu:
+
+Architecture:          x86\_64,
+CPU op-mode(s):        64-bit,
+CPU(s):                4,
+Thread(s) per core:    1,
+Core(s) per socket:    1,
+CPU socket(s):         4,
+NUMA node(s):          1,
+Vendor ID:             AuthenticAMD,
+CPU family:            16,
+Model:                 4,
+Stepping:              2,
+CPU MHz:               2110479.488,
+Hypervisor vendor:     Xen,
+Virtualization type:   para,
+L1d cache:             64K,
+L1i cache:             64K,
+L2 cache:              512K,
+L3 cache:              6144K,
+
+\subsection{Analysis}
 
 
 \end{document}

@@ -7,8 +7,10 @@
 #endif
 
 #define GNUPLOT 1
+
 #define PRINT_SIMD 0
-#define PRINT_NOSIMD 1
+#define PRINT_NOSIMD 0
+#define PRINT_DIFFERENCE 1
 
 float A[NUM];
 float B[NUM];
@@ -27,14 +29,17 @@ int main(int argc, char *argv[ ]) {
         B[i] = Ranf(-10.f, 10.f);
     }
 
-    if (PRINT_SIMD == 1) {
-        double time0 = Timer();
-        for (int t = 0; t < NUM_TRIALS; t++) {
-            SimdMul(A, B, C, NUM);
-        }
-        double time1 = Timer();
+    /****************************
+     * SIMD test block
+     * **************************/
+    double time0 = Timer();
+    for (int t = 0; t < NUM_TRIALS; t++) {
+        SimdMul(A, B, C, NUM);
+    }
+    double time1 = Timer();
 
-        double dts = (time1 - time0) / (float) NUM_TRIALS;
+    double dts = (time1 - time0) / (float) NUM_TRIALS;
+    if (PRINT_SIMD == 1) {
         if(GNUPLOT == 0) {
             printf("Average SIMD Elapsed time = %g\n", dts);
             printf("SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dts) / 1000000.f);
@@ -43,14 +48,18 @@ int main(int argc, char *argv[ ]) {
             printf("%d %8.3f\n", NUM, ((float) NUM / dts) / 1000000.f);
         }
     }
-        if(PRINT_NOSIMD == 1) { 
-        double time2 = Timer();
-        for (int t = 0; t < NUM_TRIALS; t++) {
-            NonSimdMul(A, B, C, NUM);
-        }
-        double time3 = Timer();
 
-        double dtn = (time3 - time2) / (float) NUM_TRIALS;
+    /****************************
+     * non SIMD test block
+     * **************************/
+    double time2 = Timer();
+    for (int t = 0; t < NUM_TRIALS; t++) {
+        NonSimdMul(A, B, C, NUM);
+    }
+    double time3 = Timer();
+
+    double dtn = (time3 - time2) / (float) NUM_TRIALS;
+    if(PRINT_NOSIMD == 1) { 
         if(GNUPLOT == 0) {
             printf("Average Non-SIMD Elapsed time = %g\n", dtn);
             printf("Non-SIMD speed = %8.3f MFLOPS\n", ((float) NUM / dtn) / 1000000.f);
@@ -59,6 +68,10 @@ int main(int argc, char *argv[ ]) {
             // x-axis: #-of-elements y-axis: MFLOPS, do not need elapsed time
             printf("%d %8.3f\n", NUM, ((float) NUM / dtn) / 1000000.f);
         }
+    }
+
+    if(PRINT_DIFFERENCE == 1) {
+        printf("%d %g\n", NUM, ((float) NUM / dtn) / (dtn/dts));
     }
     return 0;
 }
