@@ -7,6 +7,6 @@ set origin 0.0,0.0
 set nokey
 set xlabel "number of elements"
 set ylabel "MFLOPS"
-set pm3d
+#set pm3d
 #set style data pm3d
-plot 'simd.out', 'nosimd.out' 
+plot 'simd.out', 'simd.out' 
